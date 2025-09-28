@@ -1,6 +1,6 @@
-import './NodesSection.css';
+import './NotesSection.css';
 
-const NodesSection = () => {
+const NotesSection = () => {
   return (
     <section className='notes-section'>
       <h1 className='notes-section_title'>Personal Journal</h1>
@@ -32,4 +32,4 @@ const NodesSection = () => {
   )
 }
 
-export default NodesSection;
+export default NotesSection;

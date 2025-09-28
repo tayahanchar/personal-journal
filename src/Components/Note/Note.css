@@ -1,0 +1,48 @@
+.note-section {
+  width: 70%;
+}
+
+.note-date {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 10px;
+  background-color: black;
+  padding: 10px;
+}
+
+.note-label {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+  background-color: black;
+  padding: 10px;
+}
+
+.text {
+  width: 820px;
+  background-color: black;
+  padding: 10px;
+  min-height: 200px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.save-button {
+  background-color: darkblue;
+  color: azure;
+  cursor: pointer;
+  padding: 10px;
+  width: 100px;
+}
+
+.delete-button {
+  background-color: brown;
+  color: azure;
+  cursor: pointer;
+  padding: 10px;
+  width: 100px;
+}
