@@ -14,8 +14,12 @@ const Note = () => {
       </div>
       <textarea className='text'>description</textarea>
       <div className='buttons'>
-        <button className='save-button'>Save</button>
-        <button className='delete-button'>Delete</button>
+        <button className='save-button'>Save
+          <img className='svg' src="/save.svg" alt="save" />
+        </button>
+        <button className='delete-button'>Delete
+          <img className='svg' src="/delete.svg" alt="delete" />
+        </button>
       </div>
     </section>
   )
