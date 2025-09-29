@@ -19,11 +19,13 @@
 }
 
 .text {
-  width: 820px;
-  background-color: black;
+  width: calc(100% - 20px);
   padding: 10px;
+  background-color: black;
   min-height: 200px;
   margin-bottom: 20px;
+  color: azure;
+  border: none;
 }
 
 .buttons {
