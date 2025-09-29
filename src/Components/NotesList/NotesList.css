@@ -1,5 +1,5 @@
-.notes-section {
-  width: 30%;
+.notes-list {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
