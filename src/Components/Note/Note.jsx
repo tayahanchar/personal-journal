@@ -5,10 +5,12 @@ const Note = () => {
     <section className='note-section'>
       <h2 className='note-title'>title</h2>
       <div className='note-date'>
+        <img className='svg' src="/calender.svg" alt="calender" />
         <p>Date</p>
         <p>22.09.2025</p>
       </div>
       <div className='note-label'>
+        <img className='svg' src="/label.svg" alt="label" />
         <p>Label</p>
         <p>Sport</p>
       </div>
