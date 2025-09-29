@@ -6,7 +6,7 @@ body {
   min-height: 100vh;
   background-color: black;
   color: azure;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Winky Sans", sans-serif;
 }
 
 h1 {
@@ -19,6 +19,7 @@ p {
 
 button {
   border: none;
+  font-family: "Winky Sans", sans-serif;
 }
 
 li {
