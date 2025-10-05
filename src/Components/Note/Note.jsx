@@ -1,9 +1,11 @@
 import "./Note.css";
 import { Input } from "../Input";
 
-const Note = ({ note, changeNote }) => {
+const Note = ({ note, changeNote, addNote }) => {
   const submitForm = (event) => {
     event.preventDefault();
+    console.log(note);
+    addNote(note);
   };
 
   return (
@@ -45,11 +47,11 @@ const Note = ({ note, changeNote }) => {
         onChange={changeNote}
       ></textarea>
       <div className="buttons">
-        <button className="save-button">
+        <button type="submit" className="save-button">
           Save
           <img className="svg" src="/save.svg" alt="save" />
         </button>
-        <button className="delete-button">
+        <button type="reset" className="delete-button">
           Delete
           <img className="svg" src="/delete.svg" alt="delete" />
         </button>

@@ -1,16 +1,16 @@
-import { Header } from '../Header';
-import { NotesList } from '../NotesList';
-import { NewNoteButton } from '../NewNoteButton'
-import './NotesSection.css';
+import { Header } from "../Header";
+import { NotesList } from "../NotesList";
+import { NewNoteButton } from "../NewNoteButton";
+import "./NotesSection.css";
 
-const NotesSection = () => {
+const NotesSection = ({ notesList }) => {
   return (
-    <section className='notes-section'>
+    <section className="notes-section">
       <Header />
       <NewNoteButton />
-      <NotesList />
+      <NotesList notesList={notesList} />
     </section>
-  )
-}
+  );
+};
 
 export default NotesSection;

@@ -5,6 +5,12 @@ import NotesSection from "./Components/NotesSection/NotesSection";
 import Note from "./Components/Note/Note";
 
 function App() {
+  const [notesList, setNotesList] = useState([]);
+
+  const addNote = (newNote) => {
+    setNotesList((prev) => [...prev, newNote]);
+  };
+
   const [note, setNote] = useState({
     title: "",
     date: new Date().toISOString().split("T")[0],
@@ -21,8 +27,8 @@ function App() {
 
   return (
     <>
-      <NotesSection></NotesSection>
-      <Note note={note} changeNote={changeNote}></Note>
+      <NotesSection notesList={notesList}></NotesSection>
+      <Note addNote={addNote} note={note} changeNote={changeNote}></Note>
     </>
   );
 }
