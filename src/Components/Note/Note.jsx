@@ -1,30 +1,61 @@
-import './Note.css'
+import "./Note.css";
+import { Input } from "../Input";
 
-const Note = () => {
+const Note = ({ note, changeNote }) => {
+  const submitForm = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <section className='note-section'>
-      <h2 className='note-title'>title</h2>
-      <div className='note-date'>
-        <img className='svg' src="/calender.svg" alt="calender" />
+    <form className="note-section" onSubmit={submitForm}>
+      <Input
+        placeholder="title"
+        type="text"
+        name="title"
+        style="note-title"
+        value={note.title}
+        onChange={changeNote}
+      />
+      <div className="note-date">
+        <img className="svg" src="/calender.svg" alt="calender" />
         <p>Date</p>
-        <p>22.09.2025</p>
+        <Input
+          value={note.date}
+          type="date"
+          name="date"
+          style="form-input"
+          onChange={changeNote}
+        />
       </div>
-      <div className='note-label'>
-        <img className='svg' src="/label.svg" alt="label" />
+      <div className="note-label">
+        <img className="svg" src="/label.svg" alt="label" />
         <p>Label</p>
-        <p>Sport</p>
+        <Input
+          value={note.label}
+          type="text"
+          name="label"
+          style="form-input"
+          onChange={changeNote}
+        />
       </div>
-      <textarea className='text'>description</textarea>
-      <div className='buttons'>
-        <button className='save-button'>Save
-          <img className='svg' src="/save.svg" alt="save" />
+      <textarea
+        className="text"
+        name="text"
+        value={note.text}
+        onChange={changeNote}
+      ></textarea>
+      <div className="buttons">
+        <button className="save-button">
+          Save
+          <img className="svg" src="/save.svg" alt="save" />
         </button>
-        <button className='delete-button'>Delete
-          <img className='svg' src="/delete.svg" alt="delete" />
+        <button className="delete-button">
+          Delete
+          <img className="svg" src="/delete.svg" alt="delete" />
         </button>
       </div>
-    </section>
-  )
-}
+    </form>
+  );
+};
 
 export default Note;

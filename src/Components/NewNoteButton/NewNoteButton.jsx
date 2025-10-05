@@ -1,7 +1,5 @@
-import './NewNoteButton.css';
+import "./NewNoteButton.css";
 
 export const NewNoteButton = () => {
-  return (
-    <button className='new-note-button'>+ New note</button>
-  )
-}
+  return <button className="new-note-button">+ New note</button>;
+};
