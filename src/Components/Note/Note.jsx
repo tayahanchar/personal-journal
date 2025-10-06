@@ -10,14 +10,18 @@ const Note = ({ note, changeNote, addNote }) => {
 
   return (
     <form className="note-section" onSubmit={submitForm}>
-      <Input
-        placeholder="title"
-        type="text"
-        name="title"
-        style="note-title"
-        value={note.title}
-        onChange={changeNote}
-      />
+      <div className="note-title">
+        <img className="svg" src="/title.svg" alt="title" />
+        <p>Title</p>
+        <Input
+          type="text"
+          name="title"
+          style="form-input"
+          value={note.title}
+          onChange={changeNote}
+        />
+      </div>
+
       <div className="note-date">
         <img className="svg" src="/calender.svg" alt="calender" />
         <p>Date</p>

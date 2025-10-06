@@ -8,7 +8,11 @@ const NotesSection = ({ notesList }) => {
     <section className="notes-section">
       <Header />
       <NewNoteButton />
-      <NotesList notesList={notesList} />
+      {notesList.length !== 0 ? (
+        <NotesList notesList={notesList} />
+      ) : (
+        <div className="start-message">Create your first note</div>
+      )}
     </section>
   );
 };
