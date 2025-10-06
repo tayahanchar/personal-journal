@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import "./App.css";
 import NotesSection from "./Components/NotesSection/NotesSection";
@@ -8,7 +9,13 @@ function App() {
   const [notesList, setNotesList] = useState([]);
 
   const addNote = (newNote) => {
-    setNotesList((prev) => [...prev, newNote]);
+    setNotesList((prev) => [
+      ...prev,
+      {
+        ...newNote,
+        id: uuidv4(),
+      },
+    ]);
   };
 
   const [note, setNote] = useState({
@@ -16,6 +23,7 @@ function App() {
     date: new Date().toISOString().split("T")[0],
     label: "",
     text: "",
+    id: "",
   });
 
   const changeNote = (event) => {

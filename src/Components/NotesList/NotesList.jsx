@@ -5,7 +5,7 @@ export const NotesList = ({ notesList }) => {
   return (
     <div className="notes-list">
       {notesList.map((note) => (
-        <ListNote note={note} />
+        <ListNote key={note.id} note={note} />
       ))}
     </div>
   );
