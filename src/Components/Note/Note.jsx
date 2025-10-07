@@ -1,11 +1,39 @@
 import "./Note.css";
 import { Input } from "../Input";
+import { useState } from "react";
 
 const Note = ({ note, changeNote, addNote }) => {
+  const [formErrors, setFormErrors] = useState({
+    title: false,
+    text: false,
+    label: false,
+  });
+
+  const fieldValidation = (fieldValue, field) => {
+    if (!fieldValue.trim().length) {
+      setFormErrors((prev) => ({ ...prev, [field]: true }));
+    } else {
+      setFormErrors((prev) => ({ ...prev, [field]: false }));
+    }
+  };
+
+  const formValidation = () => {
+    fieldValidation(note.title, "title");
+    fieldValidation(note.label, "label");
+    fieldValidation(note.text, "text");
+
+    if (!note.title || !note.label || !note.text) return false;
+
+    return true;
+  };
+
   const submitForm = (event) => {
     event.preventDefault();
-    console.log(note);
-    addNote(note);
+    const isFormValid = formValidation();
+
+    if (isFormValid) {
+      addNote(note);
+    }
   };
 
   return (
@@ -16,7 +44,7 @@ const Note = ({ note, changeNote, addNote }) => {
         <Input
           type="text"
           name="title"
-          style="form-input"
+          style={formErrors.title ? "form-input error" : "form-input"}
           value={note.title}
           onChange={changeNote}
         />
@@ -40,12 +68,12 @@ const Note = ({ note, changeNote, addNote }) => {
           value={note.label}
           type="text"
           name="label"
-          style="form-input"
+          style={formErrors.label ? "form-input error" : "form-input"}
           onChange={changeNote}
         />
       </div>
       <textarea
-        className="text"
+        className={formErrors.text ? "text error" : "text"}
         name="text"
         value={note.text}
         onChange={changeNote}
