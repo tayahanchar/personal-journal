@@ -40,7 +40,7 @@ const Note = ({ note, changeNote, addNote }) => {
     <form className="note-section" onSubmit={submitForm}>
       <div className="note-title">
         <img className="svg" src="/title.svg" alt="title" />
-        <p>Title</p>
+        <label htmlFor="title">Title</label>
         <Input
           type="text"
           name="title"
@@ -52,7 +52,7 @@ const Note = ({ note, changeNote, addNote }) => {
 
       <div className="note-date">
         <img className="svg" src="/calender.svg" alt="calender" />
-        <p>Date</p>
+        <label htmlFor="date">Date</label>
         <Input
           value={note.date}
           type="date"
@@ -63,7 +63,7 @@ const Note = ({ note, changeNote, addNote }) => {
       </div>
       <div className="note-label">
         <img className="svg" src="/label.svg" alt="label" />
-        <p>Label</p>
+        <label htmlFor="label">Label</label>
         <Input
           value={note.label}
           type="text"

@@ -9,13 +9,20 @@ function App() {
   const [notesList, setNotesList] = useState([]);
 
   const addNote = (newNote) => {
-    setNotesList((prev) => [
-      ...prev,
-      {
-        ...newNote,
-        id: uuidv4(),
-      },
-    ]);
+    const noteWithId = {
+      ...newNote,
+      id: uuidv4(),
+    };
+
+    setNotesList((prev) => [...prev, noteWithId]);
+
+    const notesFromStorage = JSON.parse(localStorage.getItem("notes"));
+    if (notesFromStorage) {
+      const newStorage = [...notesFromStorage, noteWithId];
+      localStorage.setItem("notes", JSON.stringify(newStorage));
+    } else {
+      localStorage.setItem("notes", JSON.stringify([noteWithId]));
+    }
   };
 
   const [note, setNote] = useState({
