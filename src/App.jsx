@@ -15,14 +15,6 @@ function App() {
     };
 
     setNotesList((prev) => [...prev, noteWithId]);
-
-    const notesFromStorage = JSON.parse(localStorage.getItem("notes"));
-    if (notesFromStorage) {
-      const newStorage = [...notesFromStorage, noteWithId];
-      localStorage.setItem("notes", JSON.stringify(newStorage));
-    } else {
-      localStorage.setItem("notes", JSON.stringify([noteWithId]));
-    }
   };
 
   const [note, setNote] = useState({
@@ -46,6 +38,12 @@ function App() {
       setNotesList(JSON.parse(notesFromLocalStorage));
     }
   }, []);
+
+  useEffect(() => {
+    if (notesList.length) {
+      localStorage.setItem("notes", JSON.stringify(notesList));
+    }
+  }, [notesList]);
 
   return (
     <>
