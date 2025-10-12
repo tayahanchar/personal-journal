@@ -2,12 +2,27 @@ import "./Note.css";
 import { Input } from "../Input";
 import { useState } from "react";
 
-const Note = ({ note, changeNote, addNote }) => {
+const Note = ({ addNote }) => {
+  const [note, setNote] = useState({
+    title: "",
+    date: new Date().toISOString().split("T")[0],
+    label: "",
+    text: "",
+    id: "",
+  });
+
   const [formErrors, setFormErrors] = useState({
     title: false,
     text: false,
     label: false,
   });
+
+  const changeNote = (event) => {
+    setNote((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   const fieldValidation = (fieldValue, field) => {
     if (!fieldValue.trim().length) {
