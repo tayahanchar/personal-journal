@@ -1,41 +1,10 @@
 import "./Note.css";
 import { Input } from "../Input";
 import { useReducer } from "react";
+import { INITIAL_FORM_STATE } from "../../state";
+import { formReducer } from "../../reducer";
 
 const Note = ({ addNote }) => {
-  const INITIAL_FORM_STATE = {
-    note: {
-      title: "",
-      date: new Date().toISOString().split("T")[0],
-      label: "",
-      text: "",
-      id: "",
-    },
-    errors: {
-      title: true,
-      text: true,
-      label: true,
-      date: false,
-    },
-  };
-
-  const formReducer = (state, action) => {
-    switch (action.type) {
-      case "changeNote":
-        return {
-          ...state,
-          note: {
-            ...state.note,
-            [action.payload.name]: action.payload.value,
-          },
-          errors: {
-            ...state.errors,
-            [action.payload.name]: action.payload.isError,
-          },
-        };
-    }
-  };
-
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
 
   const formValidation = () => {
@@ -56,6 +25,7 @@ const Note = ({ addNote }) => {
 
     if (isFormValid) {
       addNote(formState.note);
+      dispatchForm({ type: "cleanForm" });
     }
   };
 
