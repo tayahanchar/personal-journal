@@ -1,43 +1,51 @@
 import "./Note.css";
 import { Input } from "../Input";
-import { useState } from "react";
+import { useReducer } from "react";
 
 const Note = ({ addNote }) => {
-  const [note, setNote] = useState({
-    title: "",
-    date: new Date().toISOString().split("T")[0],
-    label: "",
-    text: "",
-    id: "",
-  });
-
-  const [formErrors, setFormErrors] = useState({
-    title: false,
-    text: false,
-    label: false,
-  });
-
-  const changeNote = (event) => {
-    setNote((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
+  const INITIAL_FORM_STATE = {
+    note: {
+      title: "",
+      date: new Date().toISOString().split("T")[0],
+      label: "",
+      text: "",
+      id: "",
+    },
+    errors: {
+      title: true,
+      text: true,
+      label: true,
+      date: false,
+    },
   };
 
-  const fieldValidation = (fieldValue, field) => {
-    if (!fieldValue.trim().length) {
-      setFormErrors((prev) => ({ ...prev, [field]: true }));
-    } else {
-      setFormErrors((prev) => ({ ...prev, [field]: false }));
+  const formReducer = (state, action) => {
+    switch (action.type) {
+      case "changeNote":
+        return {
+          ...state,
+          note: {
+            ...state.note,
+            [action.payload.name]: action.payload.value,
+          },
+          errors: {
+            ...state.errors,
+            [action.payload.name]: action.payload.isError,
+          },
+        };
     }
   };
 
-  const formValidation = () => {
-    fieldValidation(note.title, "title");
-    fieldValidation(note.label, "label");
-    fieldValidation(note.text, "text");
+  const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
 
-    if (!note.title || !note.label || !note.text) return false;
+  const formValidation = () => {
+    if (
+      formState.errors.title ||
+      formState.errors.label ||
+      formState.errors.text
+    ) {
+      return false;
+    }
 
     return true;
   };
@@ -47,7 +55,7 @@ const Note = ({ addNote }) => {
     const isFormValid = formValidation();
 
     if (isFormValid) {
-      addNote(note);
+      addNote(formState.note);
     }
   };
 
@@ -59,39 +67,74 @@ const Note = ({ addNote }) => {
         <Input
           type="text"
           name="title"
-          style={formErrors.title ? "form-input error" : "form-input"}
-          value={note.title}
-          onChange={changeNote}
+          style={formState.errors.title ? "form-input error" : "form-input"}
+          value={formState.note.title}
+          onChange={(event) => {
+            dispatchForm({
+              type: "changeNote",
+              payload: {
+                name: "title",
+                value: event.target.value,
+                isError: !event.target.value.trim(),
+              },
+            });
+          }}
         />
       </div>
-
       <div className="note-date">
         <img className="svg" src="/calender.svg" alt="calender" />
         <label htmlFor="date">Date</label>
         <Input
-          value={note.date}
+          value={formState.note.date}
           type="date"
           name="date"
           style="form-input"
-          onChange={changeNote}
+          onChange={(event) => {
+            dispatchForm({
+              type: "changeNote",
+              payload: {
+                name: "date",
+                value: event.target.value,
+                isError: false,
+              },
+            });
+          }}
         />
       </div>
       <div className="note-label">
         <img className="svg" src="/label.svg" alt="label" />
         <label htmlFor="label">Label</label>
         <Input
-          value={note.label}
+          value={formState.note.label}
           type="text"
           name="label"
-          style={formErrors.label ? "form-input error" : "form-input"}
-          onChange={changeNote}
+          style={formState.errors.label ? "form-input error" : "form-input"}
+          onChange={(event) => {
+            dispatchForm({
+              type: "changeNote",
+              payload: {
+                name: "label",
+                value: event.target.value,
+                isError: !event.target.value.trim(),
+              },
+            });
+          }}
         />
       </div>
       <textarea
-        className={formErrors.text ? "text error" : "text"}
+        className={formState.errors.text ? "text error" : "text"}
         name="text"
-        value={note.text}
-        onChange={changeNote}
+        value={formState.note.text}
+        onChange={(event) => {
+          dispatchForm({
+            type: "changeNote",
+            payload: {
+              name: "text",
+              value: event.target.value,
+              isError: !event.target.value.trim(),
+            },
+          });
+        }}
       ></textarea>
       <div className="buttons">
         <button type="submit" className="save-button">
