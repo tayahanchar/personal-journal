@@ -1,6 +1,12 @@
-export const Input = ({ type, name, style, value, placeholder, onChange }) => {
+import { forwardRef } from "react";
+
+export const Input = forwardRef(function (
+  { type, name, style, value, placeholder, onChange },
+  ref
+) {
   return (
     <input
+      ref={ref}
       placeholder={placeholder}
       className={style}
       type={type}
@@ -9,4 +15,4 @@ export const Input = ({ type, name, style, value, placeholder, onChange }) => {
       onChange={onChange}
     />
   );
-};
+});

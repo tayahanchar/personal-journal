@@ -14,15 +14,15 @@ const Note = ({ addNote }) => {
   const setFocus = (errors) => {
     console.log(titleRef);
     switch (true) {
-      // case errors.title:
-      //   titleRef.current?.focus();
-      //   break;
-      // case errors.date:
-      //   dateRef.current.focus();
-      //   break;
-      // case errors.label:
-      //   labelRef.current.focus();
-      //   break;
+      case errors.title:
+        titleRef.current?.focus();
+        break;
+      case errors.date:
+        dateRef.current.focus();
+        break;
+      case errors.label:
+        labelRef.current.focus();
+        break;
       case errors.text:
         textRef.current.focus();
         break;
