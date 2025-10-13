@@ -1,13 +1,37 @@
 import "./Note.css";
 import { Input } from "../Input";
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { INITIAL_FORM_STATE } from "../../state";
 import { formReducer } from "../../reducer";
 
 const Note = ({ addNote }) => {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
+  const titleRef = useRef();
+  const labelRef = useRef();
+  const dateRef = useRef();
+  const textRef = useRef();
+
+  const setFocus = (errors) => {
+    console.log(titleRef);
+    switch (true) {
+      // case errors.title:
+      //   titleRef.current?.focus();
+      //   break;
+      // case errors.date:
+      //   dateRef.current.focus();
+      //   break;
+      // case errors.label:
+      //   labelRef.current.focus();
+      //   break;
+      case errors.text:
+        textRef.current.focus();
+        break;
+    }
+  };
 
   const formValidation = () => {
+    setFocus(formState.errors);
+
     if (
       formState.errors.title ||
       formState.errors.label ||
@@ -35,6 +59,7 @@ const Note = ({ addNote }) => {
         <img className="svg" src="/title.svg" alt="title" />
         <label htmlFor="title">Title</label>
         <Input
+          ref={titleRef}
           type="text"
           name="title"
           style={formState.errors.title ? "form-input error" : "form-input"}
@@ -55,6 +80,7 @@ const Note = ({ addNote }) => {
         <img className="svg" src="/calender.svg" alt="calender" />
         <label htmlFor="date">Date</label>
         <Input
+          ref={dateRef}
           value={formState.note.date}
           type="date"
           name="date"
@@ -75,6 +101,7 @@ const Note = ({ addNote }) => {
         <img className="svg" src="/label.svg" alt="label" />
         <label htmlFor="label">Label</label>
         <Input
+          ref={labelRef}
           value={formState.note.label}
           type="text"
           name="label"
@@ -92,6 +119,7 @@ const Note = ({ addNote }) => {
         />
       </div>
       <textarea
+        ref={textRef}
         className={formState.errors.text ? "text error" : "text"}
         name="text"
         value={formState.note.text}
