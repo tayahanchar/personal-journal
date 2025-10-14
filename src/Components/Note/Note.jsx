@@ -12,7 +12,6 @@ const Note = ({ addNote }) => {
   const textRef = useRef();
 
   const setFocus = (errors) => {
-    console.log(titleRef);
     switch (true) {
       case errors.title:
         titleRef.current?.focus();

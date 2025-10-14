@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import "./App.css";
 import NotesSection from "./Components/NotesSection/NotesSection";
 import Note from "./Components/Note/Note";
+import useLocalStorage from "./hooks/localStorage";
 
 function App() {
-  const [notesList, setNotesList] = useState([]);
+  const [notesList, setNotesList] = useLocalStorage("notes");
 
   const addNote = (newNote) => {
     const noteWithId = {
@@ -14,21 +14,8 @@ function App() {
       id: uuidv4(),
     };
 
-    setNotesList((prev) => [...prev, noteWithId]);
+    setNotesList([...notesList, noteWithId]);
   };
-
-  useEffect(() => {
-    const notesFromLocalStorage = localStorage.getItem("notes");
-    if (notesFromLocalStorage) {
-      setNotesList(JSON.parse(notesFromLocalStorage));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (notesList.length) {
-      localStorage.setItem("notes", JSON.stringify(notesList));
-    }
-  }, [notesList]);
 
   return (
     <>
