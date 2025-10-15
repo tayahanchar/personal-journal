@@ -7,7 +7,7 @@ const NotesSection = ({ notesList, setCurrentNoteId }) => {
   return (
     <section className="notes-section">
       <Header />
-      <NewNoteButton />
+      <NewNoteButton setCurrentNoteId={setCurrentNoteId} />
       {notesList.length !== 0 ? (
         <NotesList setCurrentNoteId={setCurrentNoteId} notesList={notesList} />
       ) : (

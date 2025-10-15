@@ -13,12 +13,16 @@ const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
 
   useEffect(() => {
     if (currentNoteId) {
-      console.log("jjjj");
       dispatchForm({
         type: "openNote",
         payload: {
           note: notesList.find((note) => note.id === currentNoteId),
         },
+      });
+    }
+    if (!currentNoteId) {
+      dispatchForm({
+        type: "cleanForm",
       });
     }
   }, [currentNoteId]);
