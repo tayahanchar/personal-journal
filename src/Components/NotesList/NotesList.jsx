@@ -1,7 +1,7 @@
 import "./NotesList.css";
 import { ListNote } from "../ListNote";
 
-export const NotesList = ({ notesList }) => {
+export const NotesList = ({ notesList, setCurrentNoteId }) => {
   const sortNotes = (a, b) => {
     return Date.parse(b.date) - Date.parse(a.date);
   };
@@ -9,7 +9,11 @@ export const NotesList = ({ notesList }) => {
   return (
     <div className="notes-list">
       {notesList.sort(sortNotes).map((note) => (
-        <ListNote key={note.id} note={note} />
+        <ListNote
+          setCurrentNoteId={setCurrentNoteId}
+          key={note.id}
+          note={note}
+        />
       ))}
     </div>
   );

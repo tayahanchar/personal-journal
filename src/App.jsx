@@ -4,23 +4,38 @@ import "./App.css";
 import NotesSection from "./Components/NotesSection/NotesSection";
 import Note from "./Components/Note/Note";
 import useLocalStorage from "./hooks/localStorage";
+import { useState } from "react";
 
 function App() {
   const [notesList, setNotesList] = useLocalStorage("notes");
+  const [currentNoteId, setCurrentNoteId] = useState([]);
 
   const addNote = (newNote) => {
-    const noteWithId = {
-      ...newNote,
-      id: uuidv4(),
-    };
+    if (notesList.find((note) => note.id === newNote.id)) {
+      setNotesList((prev) => {
+        return prev.map((note) => (note.id === newNote.id ? newNote : note));
+      });
+    } else {
+      const noteWithId = {
+        ...newNote,
+        id: uuidv4(),
+      };
 
-    setNotesList([...notesList, noteWithId]);
+      setNotesList([...notesList, noteWithId]);
+    }
   };
 
   return (
     <>
-      <NotesSection notesList={notesList}></NotesSection>
-      <Note addNote={addNote}></Note>
+      <NotesSection
+        setCurrentNoteId={setCurrentNoteId}
+        notesList={notesList}
+      ></NotesSection>
+      <Note
+        currentNoteId={currentNoteId}
+        notesList={notesList}
+        addNote={addNote}
+      ></Note>
     </>
   );
 }

@@ -1,15 +1,26 @@
 import "./Note.css";
 import { Input } from "../Input";
-import { useReducer, useRef } from "react";
+import { useReducer, useRef, useEffect } from "react";
 import { INITIAL_FORM_STATE } from "../../state";
 import { formReducer } from "../../reducer";
 
-const Note = ({ addNote }) => {
+const Note = ({ addNote, notesList, currentNoteId }) => {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
   const titleRef = useRef();
   const labelRef = useRef();
   const dateRef = useRef();
   const textRef = useRef();
+
+  useEffect(() => {
+    if (currentNoteId) {
+      dispatchForm({
+        type: "openNote",
+        payload: {
+          note: notesList.find((note) => note.id === currentNoteId),
+        },
+      });
+    }
+  }, [currentNoteId]);
 
   const setFocus = (errors) => {
     switch (true) {
