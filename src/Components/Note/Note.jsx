@@ -4,7 +4,7 @@ import { useReducer, useRef, useEffect } from "react";
 import { INITIAL_FORM_STATE } from "../../state";
 import { formReducer } from "../../reducer";
 
-const Note = ({ addNote, notesList, currentNoteId }) => {
+const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
   const titleRef = useRef();
   const labelRef = useRef();
@@ -13,6 +13,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
 
   useEffect(() => {
     if (currentNoteId) {
+      console.log("jjjj");
       dispatchForm({
         type: "openNote",
         payload: {
@@ -60,6 +61,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
     if (isFormValid) {
       addNote(formState.note);
       dispatchForm({ type: "cleanForm" });
+      setCurrentNoteId("");
     }
   };
 
@@ -73,7 +75,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
           type="text"
           name="title"
           style={formState.errors.title ? "form-input error" : "form-input"}
-          value={formState.note.title}
+          value={formState.note.title || ""}
           onChange={(event) => {
             dispatchForm({
               type: "changeNote",
@@ -91,7 +93,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
         <label htmlFor="date">Date</label>
         <Input
           ref={dateRef}
-          value={formState.note.date}
+          value={formState.note.date || new Date().toISOString().split("T")[0]}
           type="date"
           name="date"
           style="form-input"
@@ -112,7 +114,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
         <label htmlFor="label">Label</label>
         <Input
           ref={labelRef}
-          value={formState.note.label}
+          value={formState.note.label || ""}
           type="text"
           name="label"
           style={formState.errors.label ? "form-input error" : "form-input"}
@@ -132,7 +134,7 @@ const Note = ({ addNote, notesList, currentNoteId }) => {
         ref={textRef}
         className={formState.errors.text ? "text error" : "text"}
         name="text"
-        value={formState.note.text}
+        value={formState.note.text || ""}
         onChange={(event) => {
           dispatchForm({
             type: "changeNote",

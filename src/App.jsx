@@ -8,19 +8,18 @@ import { useState } from "react";
 
 function App() {
   const [notesList, setNotesList] = useLocalStorage("notes");
-  const [currentNoteId, setCurrentNoteId] = useState([]);
+  const [currentNoteId, setCurrentNoteId] = useState("");
 
   const addNote = (newNote) => {
     if (notesList.find((note) => note.id === newNote.id)) {
-      setNotesList((prev) => {
-        return prev.map((note) => (note.id === newNote.id ? newNote : note));
-      });
+      setNotesList(
+        notesList.map((note) => (note.id === newNote.id ? newNote : note))
+      );
     } else {
       const noteWithId = {
         ...newNote,
         id: uuidv4(),
       };
-
       setNotesList([...notesList, noteWithId]);
     }
   };
@@ -35,6 +34,7 @@ function App() {
         currentNoteId={currentNoteId}
         notesList={notesList}
         addNote={addNote}
+        setCurrentNoteId={setCurrentNoteId}
       ></Note>
     </>
   );
