@@ -155,10 +155,12 @@ const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
           Save
           <img className="svg" src="/save.svg" alt="save" />
         </button>
-        <button type="reset" className="delete-button">
-          Delete
-          <img className="svg" src="/delete.svg" alt="delete" />
-        </button>
+        {currentNoteId && (
+          <button type="reset" className="delete-button">
+            Delete
+            <img className="svg" src="/delete.svg" alt="delete" />
+          </button>
+        )}
       </div>
     </form>
   );
