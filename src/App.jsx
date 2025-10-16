@@ -24,6 +24,10 @@ function App() {
     }
   };
 
+  const deleteNote = (id) => {
+    setNotesList(notesList.filter((note) => note.id !== id));
+  };
+
   return (
     <>
       <NotesSection
@@ -35,6 +39,7 @@ function App() {
         notesList={notesList}
         addNote={addNote}
         setCurrentNoteId={setCurrentNoteId}
+        deleteNote={deleteNote}
       ></Note>
     </>
   );

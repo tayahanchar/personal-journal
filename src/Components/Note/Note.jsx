@@ -4,7 +4,13 @@ import { useReducer, useRef, useEffect } from "react";
 import { INITIAL_FORM_STATE } from "../../state";
 import { formReducer } from "../../reducer";
 
-const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
+const Note = ({
+  addNote,
+  notesList,
+  currentNoteId,
+  setCurrentNoteId,
+  deleteNote,
+}) => {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_FORM_STATE);
   const titleRef = useRef();
   const labelRef = useRef();
@@ -67,6 +73,14 @@ const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
       dispatchForm({ type: "cleanForm" });
       setCurrentNoteId("");
     }
+  };
+
+  const deleteNoteAndClearForm = (id) => {
+    deleteNote(id);
+    dispatchForm({
+      type: "cleanForm",
+    });
+    setCurrentNoteId("");
   };
 
   return (
@@ -156,7 +170,11 @@ const Note = ({ addNote, notesList, currentNoteId, setCurrentNoteId }) => {
           <img className="svg" src="/save.svg" alt="save" />
         </button>
         {currentNoteId && (
-          <button type="reset" className="delete-button">
+          <button
+            onClick={() => deleteNoteAndClearForm(currentNoteId)}
+            type="reset"
+            className="delete-button"
+          >
             Delete
             <img className="svg" src="/delete.svg" alt="delete" />
           </button>
